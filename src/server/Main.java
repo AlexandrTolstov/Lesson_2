@@ -2,29 +2,28 @@ package server;
 
 import server.client.ClientController;
 import server.client.ClientGUI;
-import server.server.ServerWindow;
+import server.client.ClientView;
+import server.server.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        //создание объектов сервера и создание связи между ними
-        ServerWindow serverWindow = new ServerWindow();
-        ServerController serverController = new ServerController();
-        serverController.setServerView(serverWindow);
-        serverWindow.setServerController(serverController);
+        ServerView view = new SwingUI();
 
-        //создание объектов клиента1 и создание связи между ними
-        ClientGUI clientGUI1 = new ClientGUI();
+        Repository filStorage = new FileStorage();
+        ServerController server = new ServerController(view, filStorage);
+        view.setController(server);
+
         ClientController clientController1 = new ClientController();
-        clientController1.setClientView(clientGUI1);
-        clientGUI1.setClient(clientController1);
-        clientController1.setServer(serverController);
-
-        //создание объектов клиента2 и создание связи между ними
-        ClientGUI clientGUI2 = new ClientGUI();
         ClientController clientController2 = new ClientController();
-        clientController2.setClientView(clientGUI2);
-        clientGUI2.setClient(clientController2);
-        clientController2.setServer(serverController);
+        ClientView clientView1 = new ClientGUI();
+        ClientView clientView2 = new ClientGUI();
+        clientView1.setClient(clientController1);
+        clientView2.setClient(clientController2);
+
+        clientController1.setClientView(clientView1);
+        clientController2.setClientView(clientView2);
+        clientController1.setServer(server);
+        clientController2.setServer(server);
     }
 }

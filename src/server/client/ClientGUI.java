@@ -36,6 +36,7 @@ public class ClientGUI extends JFrame implements ClientView{
     }
 
     //сеттер
+    @Override
     public void setClient(ClientController clientController) {
         this.clientController = clientController;
     }

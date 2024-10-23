@@ -1,5 +1,7 @@
 package server.client;
 
+import server.server.ServerController;
+
 /**
  * класс содержащий логику работы клиента
  *
